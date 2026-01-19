@@ -48,7 +48,7 @@ def args_parser():
     parser.add_argument('--reloc', type=int, default=1)
     parser.add_argument('--totalbatch', type=int, default=150000) 
     parser.add_argument('--batchSize', type=int, default=4096) 
-    parser.add_argument('--numTestbatchSize', type=int, default=50000) 
+    parser.add_argument('--numTestbatchSize', type=int, default=35000) 
     parser.add_argument('--opt_method', type=str, default='adamW')
     parser.add_argument('--clip_th', type=float, default=0.5)
     parser.add_argument('--use_lr_schedule', type=bool, default=True)
