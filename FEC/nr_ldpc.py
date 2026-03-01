@@ -54,17 +54,18 @@ def _sel_lifting(k, bgn):
             [13, 26, 52, 104, 208],
             [15, 30, 60, 120, 240]]
 
+    # k_b for lifting-size selection (per 38.212)
     if bgn == 1:
-        k_b = 22
+        k_b_select = 22
     else:
         if k > 640:
-            k_b = 10
+            k_b_select = 10
         elif k > 560:
-            k_b = 9
+            k_b_select = 9
         elif k > 192:
-            k_b = 8
+            k_b_select = 8
         else:
-            k_b = 6
+            k_b_select = 6
 
     min_val = 100000
     z = 0
@@ -73,13 +74,16 @@ def _sel_lifting(k, bgn):
     for s in s_val:
         i += 1
         for s1 in s:
-            x = k_b *s1
+            x = k_b_select * s1
             if  x >= k:
                 if x < min_val:
                     min_val = x
                     z = s1
                     i_ls = i
-    return z, i_ls, k_b
+    # k_b for actual BG dimensions:
+    # BG1 has 22 systematic columns, BG2 has 10.
+    k_b_final = 22 if bgn == 1 else 10
+    return z, i_ls, k_b_final
 
 def prototype_to_parity(prototype, liftsize):
     shape = np.array(prototype.shape) * liftsize
