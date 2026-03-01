@@ -2,7 +2,10 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.linalg import circulant
 
-def get_5g_ldpc_parity_matrix(info_len, coding_rate):
+def get_5g_ldpc_parity_matrix(info_len, coded_len):
+    if coded_len <= 0:
+        raise ValueError("coded_len must be positive.")
+    coding_rate = info_len / coded_len
     bgs = loadmat('FEC/baseGraph.mat')
     if info_len <= 292:
         bgn = 2
@@ -76,10 +79,6 @@ def _sel_lifting(k, bgn):
                     min_val = x
                     z = s1
                     i_ls = i
-    if bgn == 1:
-        k_b = 22
-    else:
-        k_b = 10
     return z, i_ls, k_b
 
 def prototype_to_parity(prototype, liftsize):
